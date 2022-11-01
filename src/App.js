@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Header from "./components/Header/Header";
+import LoginScreen from "./screens/LoginScreen";
+import {  Route, Routes, Outlet, useNavigate,  } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import Homescreen from "./screens/Homescreen";
+import Page404 from "./screens/Page404";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
-function App() {
+const Layout = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <Container><Outlet/></Container>
+      </div>
     </div>
   );
-}
+};
+
+
+const App = () => {
+  const {accessToken,loading} = useSelector(state=>state.auth)
+  const navigate = useNavigate()
+  useEffect(()=>{
+      if(!loading && !accessToken){
+            navigate('/auth')
+      }
+  },[accessToken,loading,navigate])
+  return (
+    
+      <Routes>
+        <Route element={<Layout/>}>
+        <Route exact path='/' element={<Homescreen/>}/>
+        <Route exact path='/error' element={<Page404/>}/>
+        </Route>
+        
+        <Route path='/auth' element={<LoginScreen />} />
+        <Route path='/*' element={<Page404/>} />
+      </Routes>
+    
+  );
+};
 
 export default App;

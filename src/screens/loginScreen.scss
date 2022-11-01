@@ -1,0 +1,37 @@
+.login{
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    background-color: #111;
+    &__container{
+        background-color: black;
+        padding: 2rem;
+        margin: 0 1rem;
+        width: 300px;
+        height: 250px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        button{
+           padding: 0.5rem;
+           background-color: red;
+           color: white;
+           border: none;
+           border-radius: 5px;
+           margin-bottom: 1rem;
+           &:focus{
+            outline: none;
+           }
+          .google{
+            margin-right: 10px;
+          }
+        }
+    }
+img{
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+}
+}
